@@ -1,0 +1,58 @@
+name: Build and deploy Userss JAR app to Azure Web App
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java version
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+
+      - name: Install Parent POM
+        run: mvn -N clean install
+
+      - name: Build and install Commons module
+        run: mvn -pl commons clean install
+
+
+      - name: Build Userss module
+        run: mvn -pl users clean install
+
+      - name: Upload Userss artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: userss-app
+          path: 'users/target/users-0.0.1-SNAPSHOT.jar'
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'userss_Production'
+
+
+    steps:
+      - name: Download Users artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: userss-app
+
+      - name: Deploy Userss JAR to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'userss'
+          slot-name: 'Production'
+          package: 'users-0.0.1-SNAPSHOT.jar'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FEBE08812EA440EDBE43E2B69683ACE6 }}

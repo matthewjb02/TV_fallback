@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.9.11-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - app_network
+
+
+
+  users_aerospike:
+    image: aerospike/aerospike-server:latest
+    container_name: users_aerospike
+    ports:
+      - "3000:3000"  # Client access
+      - "3001:3001"  # Management access
+      - "3002:3002"  # Cluster heartbeat
+      - "3003:3003"  # Fabric protocol
+    volumes:
+      - users_aerospike_data:/opt/aerospike/data
+    environment:
+      - SERVICE_TYPE=load-balancer
+    networks:
+      - app_network
+
+  examination_mongo:
+    image: mongo:5.0
+    container_name: examination_mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}  # Root username
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}  # Root password
+      MONGO_INITDB_DATABASE: ${EXAMINATION_DB_NAME}       # Initial database
+    ports:
+      - "27017:27017"  # MongoDB default port
+    volumes:
+      - examination_mongo_data:/data/db
+    networks:
+      - app_network
+
+volumes:
+  users_aerospike_data:
+  examination_mongo_data:
+
+networks:
+  app_network:
+    driver: bridge

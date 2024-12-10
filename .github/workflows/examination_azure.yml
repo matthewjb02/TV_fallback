@@ -1,0 +1,58 @@
+name: Build and deploy Examination JAR app to Azure Web App
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java version
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+
+      - name: Install Parent POM
+        run: mvn -N clean install
+
+      - name: Build and install Commons module
+        run: mvn -pl commons clean install
+
+
+      - name: Build Examination module
+        run: mvn -pl examination clean install
+
+      - name: Upload Examination artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: examination-app
+          path: 'examination/target/examination-0.0.1-SNAPSHOT.jar'
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'exmaination_Production'
+
+
+    steps:
+      - name: Download Examination artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: examination-app
+
+      - name: Deploy Examination JAR to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'examination'
+          slot-name: 'Production'
+          package: 'examination-0.0.1-SNAPSHOT.jar'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7B2300470C7A44E1ADB97EC83BB840F3 }}

@@ -1,0 +1,530 @@
+{
+	"info": {
+		"_postman_id": "881cf14d-ace6-4dac-8d0e-8e8356435eae",
+		"name": "Testvision",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29563195"
+	},
+	"item": [
+		{
+			"name": "Course",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/courses"
+					},
+					"response": []
+				},
+				{
+					"name": "NewCourse",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Course1\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/courses"
+					},
+					"response": []
+				},
+				{
+					"name": "AddExamToCourse",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/courses/1/exams/1"
+					},
+					"response": []
+				},
+				{
+					"name": "addTeacherToCourse",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/courses/1/teachers/2"
+					},
+					"response": []
+				},
+				{
+					"name": "rejectExam",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reason\": \"Spelfout in vraag 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/courses/1/exams/1/reject"
+					},
+					"response": []
+				},
+				{
+					"name": "acceptExam",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/courses/1/exams/1/accept"
+					},
+					"response": []
+				},
+				{
+					"name": "viewRejectedExam",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/courses/1/exams/1/reject/view"
+					},
+					"response": []
+				},
+				{
+					"name": "modifyQuestion",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"type\": \"open\",\r\n        \"id\": 1,\r\n        \"points\": 1,\r\n        \"question\": \"Wat is de Hoofdstad van Nederland?\",\r\n        \"correctAnswer\": \"Amsterdam\",\r\n        \"answer\": \"\",\r\n        \"teacherFeedback\": \"\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/courses/1/exams/1/reject/modify"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exams",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/courses/1/exams"
+					},
+					"response": []
+				},
+				{
+					"name": "AddQuestionsToExam",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    1,\r\n    2\r\n]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/courses/1/exams/1/questions"
+					},
+					"response": []
+				},
+				{
+					"name": "NewExam",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"makerMail\" : \"henk.detank@hu.nl\",\r\n    \"examValidatorMail\" : \"henk.detank@hu.nl\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/courses/1/exams/examMaker/1/examValidator/2"
+					},
+					"response": []
+				},
+				{
+					"name": "addStatistics",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n    \"submissionCount\": 0,\n    \"passCount\": 0,\n    \"failCount\": 0,\n    \"averageScore\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/exams/1/statistics"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Question",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/questions"
+					},
+					"response": []
+				},
+				{
+					"name": "New (open) Question",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\" : \"open\",\r\n    \"points\" : 1,\r\n    \"question\" : \"Wat is de hoofdstad van Nederland?\",\r\n    \"correctAnswer\" : \"Amsterdam\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/questions"
+					},
+					"response": []
+				},
+				{
+					"name": "New (Multiple choice) Question",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\" : \"multipleChoice\",\r\n    \"points\" : 1,\r\n    \"question\" : \"In welk gebouw hebben wij les?\",\r\n    \"answers\" : [\"PL97\", \"HL15\", \"HL7\"],\r\n    \"correctAnswerIndex\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/questions"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "teacher",
+			"item": [
+				{
+					"name": "teacherAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/teacher/all"
+					},
+					"response": []
+				},
+				{
+					"name": "addTeacher",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"firstName\" : \"Henk\",\r\n\"lastName\": \"de Tank\",\r\n\"email\": \"henk.detank@hu.nl\"}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/teacher"
+					},
+					"response": []
+				},
+				{
+					"name": "getTeacher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": ""
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/teacher/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Submissions",
+			"item": [
+				{
+					"name": "get all submissions for for an exam",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/submission/1"
+					},
+					"response": []
+				},
+				{
+					"name": "get submission of a exam per student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/submission/1/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Give points and comments on a question of an exam of a student from a submission",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"givenPoints\": 6,\n    \"feedback\": \"goed gedaan\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/submission/1/1/question/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Give a final grade of the exam with comments from a submission",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comments\": \"goed gedaan\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/submission/1/1/grading"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Submissions Copy",
+			"item": [
+				{
+					"name": "get all submissions for for an exam",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/submission/1"
+					},
+					"response": []
+				},
+				{
+					"name": "get submission of a exam per student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/submission/1/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Give points and comments on a question of an exam of a student from a submission",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"givenPoints\": 1,\n    \"feedback\": \"goed gedaan\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/submission/1/1/question/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Give a final grade of the exam with comments from a submission",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"teacherId\": \"1\",\n    \"comments\": \"goed gedaan\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/submission/1/1/grading"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Examination",
+			"item": [
+				{
+					"name": "Start Examination",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"studentId\": 1,\n  \"examId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/examination/start"
+					},
+					"response": []
+				},
+				{
+					"name": "answer question",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"examId\": 1,\n  \"questionNr\": 1,\n  \"answer\": \"Utrecht\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/examination/answer"
+					},
+					"response": []
+				},
+				{
+					"name": "end exam",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"examId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/examination/end"
+					},
+					"response": []
+				},
+				{
+					"name": "see question",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"examId\": 1,\n  \"questionNr\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/examination/seeQuestion "
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "Add student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/student/add"
+					},
+					"response": []
+				},
+				{
+					"name": "get student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/student/1"
+					},
+					"response": []
+				},
+				{
+					"name": "delete student",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/student/delete/1"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
