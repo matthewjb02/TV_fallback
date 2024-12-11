@@ -25,7 +25,7 @@ services:
       - app_network
 
 volumes:
-  users_aerospike_data:
+  examination_mongo_data:
 
 networks:
   app_network:

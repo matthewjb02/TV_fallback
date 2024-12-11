@@ -20,10 +20,10 @@ public class ExaminationController {
         this.examinationService = examinationService;
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "Grading service is up and running!";
-    }
+//    @GetMapping("/test")
+//    public String test() {
+//        return "Grading service is up and running!";
+//    }
 
 
     @GetMapping("{id}")
@@ -44,14 +44,14 @@ public class ExaminationController {
         }
     }
 
-    @PatchMapping("/candidates")
-    public CandidatesResponse selectCandidates(@RequestBody Candidates candidates) {
-        try {
-            return examinationService.selectCandidates(candidates);
-        } catch (NoExaminationFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
+//    @PatchMapping("/candidates")
+//    public CandidatesResponse selectCandidates(@RequestBody Candidates candidates) {
+//        try {
+//            return examinationService.selectCandidates(candidates);
+//        } catch (NoExaminationFoundException e) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+//        }
+//    }
 
     @PatchMapping("/candidate")
     public CandidatesResponse selectCandidate(@RequestBody Candidate candidate) {
@@ -62,23 +62,23 @@ public class ExaminationController {
         }
     }
 
-    @DeleteMapping("/candidates")
-    public CandidatesResponse removeCandidates(@RequestBody Candidates candidates) {
-        try {
-            return examinationService.removeCandidates(candidates);
-        } catch (NoExaminationFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
+//    @DeleteMapping("/candidates")
+//    public CandidatesResponse removeCandidates(@RequestBody Candidates candidates) {
+//        try {
+//            return examinationService.removeCandidates(candidates);
+//        } catch (NoExaminationFoundException e) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+//        }
+//    }
 
-    @DeleteMapping("/candidate")
-    public CandidatesResponse removeCandidate(@RequestBody Candidate candidate) {
-        try {
-            return examinationService.removeCandidate(candidate);
-        } catch (NoExaminationFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
+//    @DeleteMapping("/candidate")
+//    public CandidatesResponse removeCandidate(@RequestBody Candidate candidate) {
+//        try {
+//            return examinationService.removeCandidate(candidate);
+//        } catch (NoExaminationFoundException e) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+//        }
+//    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
