@@ -44,7 +44,6 @@ volumes:
   examination_mongo_data:
   users_aerospike_data:
 
-
 networks:
   app_network:
     driver: bridge
