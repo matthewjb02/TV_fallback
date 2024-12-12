@@ -6,11 +6,11 @@ import java.io.Serializable;
 
 @Getter
 public class GradingResponse implements Serializable {
-    private Long id;
+    private String id;
     private double grade;
     private String comments;
 
-    public GradingResponse(Long id, double grade, String comments){
+    public GradingResponse(String id, double grade, String comments){
         this.id = id;
         this.grade = grade;
         this.comments = comments;

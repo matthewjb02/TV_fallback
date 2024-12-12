@@ -27,12 +27,12 @@ public class ExamConsumer {
 
 
     @RabbitListener(queues = {"examination"})
-    public void consumeExamId(Long examId){
+    public void consumeExamId(String examId){
         LOGGER.info(String.format("Received message -> %s", examId));
         examService.sendAndProcessExam(examId);
     }
     @RabbitListener(queues = {"examination"})
-    public void consumeCourse(Long courseId){
+    public void consumeCourse(String courseId){
         LOGGER.info(String.format("Received message -> %s", courseId));
         courseService.sendAndProcessCourse(courseId);
     }
@@ -47,7 +47,7 @@ public class ExamConsumer {
     }
 
     @RabbitListener(queues = "${rabbit.grading.exam.queue}")
-    public void receiveUpdateExamStatisticsMessage(Long examId) {
+    public void receiveUpdateExamStatisticsMessage(String examId) {
         examService.updateStatistics(examId);
     }
 

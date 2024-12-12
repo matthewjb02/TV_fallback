@@ -31,7 +31,7 @@ public class ExamProducer {
         LOGGER.info(String.format("Message sent -> %s", examResponse.toString()));
         rabbitTemplate.convertAndSend(exchange, routingKey, examResponse);
     }
-    public void sendTeacherRequest(long teacherId) {
+    public void sendTeacherRequest(String teacherId) {
         LOGGER.info(String.format("Message sent -> %s", teacherId + ""));
         rabbitTemplate.convertAndSend(exchange, routingKey, teacherId);
 

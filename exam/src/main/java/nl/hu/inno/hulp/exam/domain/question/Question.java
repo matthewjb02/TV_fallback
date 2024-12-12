@@ -2,7 +2,7 @@ package nl.hu.inno.hulp.exam.domain.question;
 
 
 public interface Question {
-    Long getId();
+    String getId();
     int getPoints();
     String getQuestion();
     int getGivenPoints();

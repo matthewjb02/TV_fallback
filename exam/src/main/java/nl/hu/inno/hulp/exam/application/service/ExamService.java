@@ -43,7 +43,7 @@ public class ExamService {
         this.examProducer = examProducer;
     }
 
-    public ExamResponse addExam(long examMakerId, long examValidatorId) {
+    public ExamResponse addExam(String examMakerId, String examValidatorId) {
 
         Exam exam = new Exam(getTeacherById(examMakerId), getTeacherById(examValidatorId));
 
@@ -54,7 +54,7 @@ public class ExamService {
         return toExamResponse(savedExam);
     }
 
-    public ExamResponse deleteExam(Long id) {
+    public ExamResponse deleteExam(String id) {
         ExamResponse oldExamDTO = getExamById(id);
         examRepository.deleteById(id);
         return oldExamDTO;
@@ -71,23 +71,23 @@ public class ExamService {
         return examDTOS;
     }
 
-    public ExamResponse getExamById(Long id) {
+    public ExamResponse getExamById(String id) {
         Exam exam = examRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No exam with id: " + id + " found!"));
 
         ExamResponse response = toExamResponse(exam);
         return response;
     }
-public void sendAndProcessExam(Long id) {
+    public void sendAndProcessExam(String id) {
         this.examProducer.sendExamResponse(getExamById(id));
-}
+    }
 
-    public Exam getExam(Long id) {
+    public Exam getExam(String id) {
         return examRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No exam with id: " + id + " found!"));
     }
 
-    public ExamResponse addQuestionsByIdsToExam(Long examId, List<Long> questionIds) {
+    public ExamResponse addQuestionsByIdsToExam(String examId, List<String> questionIds) {
         Exam exam = examRepository.findById(examId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Exam not found"));
         List<QuestionEntity> newQuestions = questionRepository.findAllById(questionIds);
@@ -98,7 +98,7 @@ public void sendAndProcessExam(Long id) {
     }
 
 
-    public ExamResponse addGradingCriteriaToExam(Long examId, GradingCriteriaDTO gradingCriteriaDTO) {
+    public ExamResponse addGradingCriteriaToExam(String examId, GradingCriteriaDTO gradingCriteriaDTO) {
         Exam exam = examRepository.findById(examId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Exam not found"));
 
@@ -135,9 +135,9 @@ public void sendAndProcessExam(Long id) {
                     exam.getStatistics().getAverageScore()
             );
         }
-       
+
         return new ExamResponse(exam.getId(), exam.getTotalPoints(),
-              getQuestionResponses(exam.getQuestions()), submissionResponses, gradingCriteriaDTO, statisticsResponse);
+                getQuestionResponses(exam.getQuestions()), submissionResponses, gradingCriteriaDTO, statisticsResponse);
     }
 
     private List<QuestionResponse> getQuestionResponses(List<QuestionEntity> questions) {
@@ -161,12 +161,12 @@ public void sendAndProcessExam(Long id) {
         return responses;
     }
 
-    public Long getTeacherById(Long id) {
+    public String getTeacherById(String id) {
         String url = "https://userss-fje9bmb2b3gtdafe.northeurope-01.azurewebsites.net/teacher/" + id;
         examProducer.sendTeacherRequest(id);
         return restTemplate.getForObject(url, TeacherResponse.class).getId();
     }
-    public SubmissionResponse getSubmissionById(Long id) {
+    public SubmissionResponse getSubmissionById(String id) {
         String url = "https://inno-testvision-grading-abaybzgufxdvh5cy.northeurope-01.azurewebsites.net/submission/" + id;
         return restTemplate.getForObject(url, SubmissionResponse.class);
     }
@@ -174,7 +174,7 @@ public void sendAndProcessExam(Long id) {
 
     // used by other modules via rpc
 
-    public SubmissionResponse getSubmissionByExamAndStudentId(Long examId, Long studentId){
+    public SubmissionResponse getSubmissionByExamAndStudentId(String examId, String studentId){
         Exam exam = getExam(examId);
         SubmissionResponse submissionResponse = exam.getSubmissionIds().stream()
                 .map(submissionId -> getSubmissionById(submissionId))
@@ -188,7 +188,7 @@ public void sendAndProcessExam(Long id) {
 
     }
 
-    public List<SubmissionResponse> getSubmissionsByExamId(Long examId) {
+    public List<SubmissionResponse> getSubmissionsByExamId(String examId) {
 
         Exam exam = getExam(examId);
         List<SubmissionResponse> submissionResponses = exam.getSubmissionIds().stream()
@@ -200,7 +200,7 @@ public void sendAndProcessExam(Long id) {
     }
 
 
-    public void updatePointsForOpenQuestion(Long examId, int questionNr, UpdateOpenQuestionPointsRequest request) {
+    public void updatePointsForOpenQuestion(String examId, int questionNr, UpdateOpenQuestionPointsRequest request) {
         Exam exam = getExam(examId);
         QuestionEntity question = exam.getQuestions().get(questionNr - 1);
         if (question != null) {
@@ -216,13 +216,13 @@ public void sendAndProcessExam(Long id) {
         }
     }
 
-    public double calculateGrade(Long examId) {
+    public double calculateGrade(String examId) {
         Exam exam = getExam(examId);
         return exam.calculateGrade();
 
     }
 
-    public void updateStatistics(Long examId) {
+    public void updateStatistics(String examId) {
         Exam exam = getExam(examId);
         double passGrade = 5.5;
 
@@ -244,7 +244,7 @@ public void sendAndProcessExam(Long id) {
         saveExam(exam);
     }
 
-    public void addSubmission(Long examId, Long submissionId) {
+    public void addSubmission(String examId, String submissionId) {
         Exam exam = getExam(examId);
         exam.addSubmissionId(submissionId);
 

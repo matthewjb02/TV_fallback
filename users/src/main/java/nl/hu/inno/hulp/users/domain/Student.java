@@ -1,26 +1,28 @@
 package nl.hu.inno.hulp.users.domain;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.Getter;
+import org.springframework.data.annotation.Id;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.data.aerospike.mapping.Document;
+import org.springframework.data.aerospike.mapping.Field;
 
-@Entity
-@Getter
+import java.util.UUID;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Document
 public class Student extends User {
     @Id
-    @GeneratedValue
-    private Long id;
+    private String id = UUID.randomUUID().toString();
     private boolean extraTimeRight = false;
-    @Embedded
+    @Field("email")
     private StudentEmail email;
 
     protected Student() {
         super();
     }
 
-    public Student(String firstName, String lastName, boolean extraTimeRight,String email) {
+    public Student(String firstName, String lastName, boolean extraTimeRight, String email) {
         super(firstName, lastName);
         this.extraTimeRight = extraTimeRight;
         this.email = new StudentEmail(email);

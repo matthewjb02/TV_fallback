@@ -17,12 +17,12 @@ import java.util.List;
 public class Exam {
     @Id
     @GeneratedValue
-    private Long id;
+    private String id;
     @Embedded
     private GradingCriteria gradingCriteria;
 
     @Lob
-    private List<Long> submissionIds = new ArrayList<>();
+    private List<String> submissionIds = new ArrayList<>();
 
     private ValidationStatus validationStatus= ValidationStatus.WAITING;
     private String reason;
@@ -30,22 +30,22 @@ public class Exam {
     @OneToMany
     private List<QuestionEntity> questions;
 
-    private Long examValidatorId;
+    private String examValidatorId;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Statistics statistics;
 
-    private Long examMakerId;
+    private String examMakerId;
     private int totalPoints;
     protected Exam(){
 
     }
 
-    public Exam(Long examMakerId, Long examValidatorId){
-            this.examMakerId = examMakerId;
-            this.examValidatorId = examValidatorId;
-            this.questions = new ArrayList<>();
-            calculateTotalPoints();
+    public Exam(String examMakerId,  String examValidatorId){
+        this.examMakerId = examMakerId;
+        this.examValidatorId = examValidatorId;
+        this.questions = new ArrayList<>();
+        calculateTotalPoints();
 
     }
 
@@ -127,14 +127,14 @@ public class Exam {
                 .sum();
     }
 
-    public void addSubmissionId(Long submissionId) {
+    public void addSubmissionId(String submissionId) {
         this.submissionIds.add(submissionId);
     }
 
-    public void addExamMakerId(Long examMakerId) {
+    public void addExamMakerId(String examMakerId) {
         this.examMakerId = examMakerId;
     }
-    public void addExamValidatorId(Long examValidatorId) {
+    public void addExamValidatorId(String examValidatorId) {
         this.examValidatorId = examValidatorId;
     }
 

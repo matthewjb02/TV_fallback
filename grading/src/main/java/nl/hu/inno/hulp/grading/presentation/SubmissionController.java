@@ -1,10 +1,11 @@
 package nl.hu.inno.hulp.grading.presentation;
 
-
 import nl.hu.inno.hulp.commons.request.UpdateOpenQuestionPointsRequest;
+import nl.hu.inno.hulp.commons.response.TeacherResponse;
 import nl.hu.inno.hulp.grading.application.SubmissionService;
 import nl.hu.inno.hulp.commons.request.GradingRequest;
 import nl.hu.inno.hulp.commons.response.SubmissionResponse;
+import nl.hu.inno.hulp.grading.domain.Grading;
 import nl.hu.inno.hulp.grading.producer.RabbitMQProducer;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,35 +30,34 @@ public class SubmissionController {
     }
 
     @GetMapping("/{testId}")
-    public List<SubmissionResponse> getSubmissionsByTestId(@PathVariable Long testId) {
+    public List<SubmissionResponse> getSubmissionsByTestId(@PathVariable String testId) {
         return submissionService.getSubmissionsByExamId(testId);
     }
 
     @GetMapping("/{id}/sub")
-    public SubmissionResponse getSubmissionById(@PathVariable Long id) {
+    public SubmissionResponse getSubmissionById(@PathVariable String id) {
         return submissionService.getSubmissionResponseById(id);
     }
 
     @PutMapping("/{examId}/{studentId}/question/{questionNr}")
-    public void updateQuestionGrading(@PathVariable Long examId, @PathVariable Long studentId, @PathVariable int questionNr, @RequestBody UpdateOpenQuestionPointsRequest request) {
+    public void updateQuestionGrading(@PathVariable String examId, @PathVariable String studentId, @PathVariable int questionNr, @RequestBody UpdateOpenQuestionPointsRequest request) {
 
         submissionService.updateOpenQuestionGrading(examId, studentId, questionNr, request);
     }
 
     @PostMapping("/{testId}/{studentId}/grading")
-    public void addGrading(@PathVariable Long testId, @PathVariable Long studentId, @RequestBody GradingRequest request) {
+    public void addGrading(@PathVariable String testId, @PathVariable String studentId, @RequestBody GradingRequest request) {
         submissionService.addGrading(testId, studentId, request);
     }
 
     // rpc
     @PostMapping("/{examSessionId}/create")
-    public SubmissionResponse createSubmission(@PathVariable Long examSessionId) {
+    public SubmissionResponse createSubmission(@PathVariable String examSessionId) {
         return submissionService.createSubmission(examSessionId);
     }
 
     @PostMapping("{submissionId}")
-    public  void saveSubmission(@PathVariable Long submissionId) {
+    public  void saveSubmission(@PathVariable String submissionId) {
         submissionService.saveSubmission(submissionId);
     }
-
 }

@@ -29,7 +29,7 @@ import java.util.List;
 @EnableWebSecurity
 public class ExamConfig {
 
-    @Value("${rabbitmq.queue.name}")
+    @Value("exam")
     private String queue;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

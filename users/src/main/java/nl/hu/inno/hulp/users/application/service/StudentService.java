@@ -20,24 +20,25 @@ public class StudentService {
         this.usersProducer = usersProducer;
     }
 
-    public Student getStudentById(Long id) {
+    public Student getStudentById(String id) {
         return studentRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No student with id: " + id + " found!"));
     }
 
-    public StudentResponse getStudentResponse(Long id) {
+    public StudentResponse getStudentResponse(String id) {
         Student student = getStudentById(id);
         return new StudentResponse(student.getId(), student.getFirstName(), student.getLastName(),
                 student.isExtraTimeRight(), student.getEmail().getEmailString());
     }
 
-    public void processAndSendStudentResponse(Long id) {
+    public void processAndSendStudentResponse(String id) {
         usersProducer.sendStudentResponse(getStudentResponse(id));
     }
 
     public StudentResponse addStudent(StudentRequest studentRequest) {
         Student student = new Student(studentRequest.firstName, studentRequest.lastName,
-                studentRequest.extraTimeRight,studentRequest.email);
+                studentRequest.extraTimeRight,
+                studentRequest.email);
         studentRepository.save(student);
 
         return getStudentResponse(student.getId());
@@ -51,7 +52,7 @@ public class StudentService {
         return getStudentResponse(student.getId());
     }
 
-    public void deleteStudent(Long id) {
+    public void deleteStudent(String id) {
         studentRepository.delete(getStudentById(id));
     }
 }

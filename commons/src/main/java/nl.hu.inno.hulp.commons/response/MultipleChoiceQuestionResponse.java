@@ -7,7 +7,6 @@ import java.util.List;
 
 @Getter
 public class MultipleChoiceQuestionResponse extends QuestionResponse implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     private List<String> answers;
     private List<Integer> correctAnswerIndexes;

@@ -5,24 +5,31 @@ import lombok.Getter;
 import nl.hu.inno.hulp.commons.enums.ValidationStatus;
 import nl.hu.inno.hulp.exam.domain.question.QuestionEntity;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 
 @Entity
 @Getter
 public class Course {
+
     @Id
-    @GeneratedValue
-    private Long id;
+    private String id;
+
 
     private String name;
 
     @Lob
-    private List<Long> teacherIds =new ArrayList<>();
+    private List<String> teacherIds =new ArrayList<>();
+
     @OneToMany
     private List<Exam> approvedExams =new ArrayList<>();
+
     @OneToMany
     private List<Exam> validatingExams =new ArrayList<>();
+
     @OneToMany
     private List<Exam> rejectedExams =new ArrayList<>();
 
@@ -32,9 +39,10 @@ public class Course {
 
     public Course(String name){
         this.name = name;
+        this.id= UUID.randomUUID().toString();
     }
 
-    public void addTeacher(Long teacherId){
+    public void addTeacher(String teacherId){
         teacherIds.add(teacherId);
     }
 
@@ -56,26 +64,27 @@ public class Course {
         } else throw new Exception("The Teacher does not teach this course");
     }
 
-    private boolean canIApproveThisExam(Long examValidatorId, Exam exam) throws Exception {
-        if (getValidatingExams().contains(exam) && exam.getExamValidatorId() == examValidatorId){
+    private boolean canIApproveThisExam(String examValidatorId, Exam exam) throws Exception {
+        if (getValidatingExams().contains(exam) && exam.getExamValidatorId().equals(examValidatorId)){
             return true;
         }
-        else if(exam.getExamValidatorId() != examValidatorId && getValidatingExams().contains(exam)){
+        else if(!exam.getExamValidatorId().equals(examValidatorId) && getValidatingExams().contains(exam)){
             throw new Exception("The Teacher is not assigned as validator, but the exam needs to be Validated");
         }
-        else throw new Exception("The exam cannot be validated");
+        else
+            throw new Exception("The exam cannot be validated");
     }
 
-    public void approveExam(Exam exam, Long examValidatorId) throws Exception {
-        if (doesTeacherTeachCourse(exam)&& canIApproveThisExam(examValidatorId,exam)){
+    public void approveExam(Exam exam, String  examValidatorId) throws Exception {
+        if (doesTeacherTeachCourse(exam)){
             exam.setValidationStatus(ValidationStatus.APPROVED);
             this.getValidatingExams().remove(exam);
             this.getApprovedExams().add(exam);
         }
     }
 
-    public void rejectExam(Exam exam, Long examValidatorId, String reason) throws Exception {
-        if (doesTeacherTeachCourse(exam)&& canIApproveThisExam(examValidatorId, exam)){
+    public void rejectExam(Exam exam, String  examValidatorId, String reason) throws Exception {
+        if (doesTeacherTeachCourse(exam)){
             exam.setValidationStatus(ValidationStatus.DENIED);
             this.getValidatingExams().remove(exam);
             this.getRejectedExams().add(exam);

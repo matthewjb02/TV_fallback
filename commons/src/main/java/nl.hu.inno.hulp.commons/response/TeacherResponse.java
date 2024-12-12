@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class TeacherResponse {
-    private long id;
+    private String id;
     private String firstName;
     private String lastName;
     private String email;
@@ -12,7 +12,7 @@ public class TeacherResponse {
     protected TeacherResponse() {
 
     }
-    public TeacherResponse(Long id, String firstName, String lastName, String email) {
+    public TeacherResponse(String id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

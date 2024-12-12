@@ -1,6 +1,6 @@
 package nl.hu.inno.hulp.commons.response;
 
-import jakarta.persistence.ManyToOne;
+
 import lombok.Getter;
 
 @Getter

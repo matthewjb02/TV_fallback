@@ -26,44 +26,44 @@ public class ExamController {
     }
 
     @GetMapping("/{id}")
-    public ExamResponse getExamById(@PathVariable Long id) {
+    public ExamResponse getExamById(@PathVariable String id) {
         return examService.getExamById(id);
     }
 
     @PostMapping("/examMaker/{makerId}/examValidator/{examValidatorId}")
-    public ExamResponse addExam(@PathVariable Long makerId, @PathVariable Long examValidatorId) {
+    public ExamResponse addExam(@PathVariable String makerId, @PathVariable String examValidatorId) {
         return examService.addExam(makerId, examValidatorId);
     }
 
     @DeleteMapping("/{id}")
-    public ExamResponse deleteExam(@PathVariable Long id) {
+    public ExamResponse deleteExam(@PathVariable String id) {
         return examService.deleteExam(id);
     }
 
     @PostMapping("/{examId}/questions")
-    public ExamResponse addQuestionsByIdsToExam(@PathVariable Long examId, @RequestBody List<Long> questionIds) {
+    public ExamResponse addQuestionsByIdsToExam(@PathVariable String examId, @RequestBody List<String> questionIds) {
         return examService.addQuestionsByIdsToExam(examId, questionIds);
     }
 
     @PostMapping("/{examId}/grading-criteria")
-    public ExamResponse addGradingCriteriaToExam(@PathVariable Long examId, @RequestBody GradingCriteriaDTO gradingCriteriaDTO) {
+    public ExamResponse addGradingCriteriaToExam(@PathVariable String examId, @RequestBody GradingCriteriaDTO gradingCriteriaDTO) {
         return examService.addGradingCriteriaToExam(examId, gradingCriteriaDTO);
     }
 
     // used by other modules via rpc
     @GetMapping("{examId}/students/{studentId}/submission")
-    public SubmissionResponse getSubmissionByExamAndStudentId(@PathVariable Long examId, @PathVariable Long studentId) {
+    public SubmissionResponse getSubmissionByExamAndStudentId(@PathVariable String examId, @PathVariable String studentId) {
         return examService.getSubmissionByExamAndStudentId(examId, studentId);
     }
 
     @GetMapping("{examId}/submissions")
-    public List<SubmissionResponse> getSubmissionsByExamId(@PathVariable Long examId) {
+    public List<SubmissionResponse> getSubmissionsByExamId(@PathVariable String examId) {
         return examService.getSubmissionsByExamId(examId);
     }
 
 
     @PostMapping("/{examId}/gradeCalculation")
-    public double calculateGrade(@PathVariable Long examId) {
+    public double calculateGrade(@PathVariable String examId) {
         return examService.calculateGrade(examId);
 
     }

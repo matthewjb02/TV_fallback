@@ -17,7 +17,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public StudentResponse getStudent(@PathVariable Long id) {
+    public StudentResponse getStudent(@PathVariable String id) {
         return studentService.getStudentResponse(id);
     }
 
@@ -33,7 +33,7 @@ public class StudentController {
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteStudent(@PathVariable Long id) {
+    public void deleteStudent(@PathVariable String id) {
         studentService.deleteStudent(id);
     }
 }

@@ -72,33 +72,33 @@ public class ExaminationService {
         return examination.storeExamSession(examSession);
     }
 
-    public void deleteExamination(Long id) {
+    public void deleteExamination(String id) {
         examinationRepository.delete(getExaminationById(id));
     }
 
-    public Examination getExaminationById(Long id) {
+    public Examination getExaminationById(String id) {
         return examinationRepository.findById(id)
                 .orElseThrow(() -> new NoExaminationFoundException("No examination with id: " + id + " found!"));
     }
 
-    public StudentResponse getCandidateById(Long id) {
+    public StudentResponse getCandidateById(String id) {
         String url = "https://userss-fje9bmb2b3gtdafe.northeurope-01.azurewebsites.net/student/" + id;
         examinationProducer.sendStudentRequest(id);
         return restTemplate.getForObject(url, StudentResponse.class);
     }
 
-    public ExamResponse getExamById(Long id,Long courseId) {
+    public ExamResponse getExamById(String id, String courseId) {
         String url = "https://exam-aze2emf4etgrapew.northeurope-01.azurewebsites.net/courses/" + courseId + "/exams/" + id;
         examinationProducer.sendExamRequest(id);
         return restTemplate.getForObject(url, ExamResponse.class);
     }
-    public CourseResponse getCourseById(Long id) {
+    public CourseResponse getCourseById(String id) {
         String url = "https://exam-aze2emf4etgrapew.northeurope-01.azurewebsites.net/courses/" + id;
         examinationProducer.sendCourseRequest(id);
         return restTemplate.getForObject(url,CourseResponse.class);
     }
 
-    public CandidatesResponse getCandidatesResponse(Long id, List<Long> candidates) {
+    public CandidatesResponse getCandidatesResponse(String id, List<String> candidates) {
         Examination examination = getExaminationById(id);
         List<StudentResponse> studentResponses = candidates.stream()
                 .map(this::getCandidateById)
@@ -108,7 +108,7 @@ public class ExaminationService {
     }
 
 
-    public ExaminationResponse getExaminationResponse(Long id) {
+    public ExaminationResponse getExaminationResponse(String id) {
         Examination examination = getExaminationById(id);
         List<StudentResponse> studentResponses = examination.getCandidates().stream()
                 .map(this::getCandidateById)

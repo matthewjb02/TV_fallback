@@ -11,7 +11,7 @@ import java.util.List;
 public class MultipleChoiceQuestion extends QuestionEntity implements Serializable {
     @Id
     @GeneratedValue
-    private Long id;
+    private String id;
 
     @ElementCollection
     private List<String> answers;

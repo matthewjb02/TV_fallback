@@ -44,7 +44,7 @@ public class ExaminationConsumer {
     }
 
     //@RabbitListener(queues = {"${rabbitmq.grading.examsession.queue}"})
-    public void  updateOpenQuestionGrading(Long examSessionIdFromSubmission, int questionNr, UpdateOpenQuestionPointsRequest request) {
+    public void  updateOpenQuestionGrading(String examSessionIdFromSubmission, int questionNr, UpdateOpenQuestionPointsRequest request) {
         LOGGER.info(String.format("Received JSON message -> update-question-grading: %s", request));
         //examSessionService.updatePointsOpenQuestion(examSessionIdFromSubmission, questionNr, request);
     }

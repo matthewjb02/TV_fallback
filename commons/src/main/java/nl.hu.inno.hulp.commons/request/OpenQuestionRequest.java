@@ -7,6 +7,10 @@ public class OpenQuestionRequest extends QuestionRequest{
 
     private String correctAnswer;
 
+    protected OpenQuestionRequest() {
+
+    }
+
     public OpenQuestionRequest(int points, String question, String correctAnswer) {
         super(points, question);
         this.correctAnswer = correctAnswer;

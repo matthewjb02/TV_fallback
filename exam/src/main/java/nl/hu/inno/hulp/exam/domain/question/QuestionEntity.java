@@ -3,6 +3,10 @@ package nl.hu.inno.hulp.exam.domain.question;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
+import nl.hu.inno.hulp.exam.domain.question.MultipleChoiceQuestion;
+import nl.hu.inno.hulp.exam.domain.question.OpenQuestion;
+import nl.hu.inno.hulp.exam.domain.question.Question;
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -15,10 +19,9 @@ import jakarta.persistence.*;
         @JsonSubTypes.Type(value = OpenQuestion.class, name = "open"),
         @JsonSubTypes.Type(value = MultipleChoiceQuestion.class, name = "multipleChoice")
 })
-public class QuestionEntity implements Question{
+public class QuestionEntity implements Question {
     @Id
-    @GeneratedValue
-    protected Long id;
+    protected String id;
 
     protected int points;
     protected String question;
@@ -32,7 +35,7 @@ public class QuestionEntity implements Question{
         this.question = question;
     }
 
-    public Long getId(){
+    public String getId() {
         return id;
     }
 
@@ -57,9 +60,12 @@ public class QuestionEntity implements Question{
     }
 
     public void addGivenPoints(int points) {
-        if(this instanceof MultipleChoiceQuestion) {
-            throw new IllegalArgumentException("Points for multiple choice questions are automatically calculated and cannot be manually assigned.");
-        }
+//        if (this instanceof MultipleChoiceQuestion) {
+//            throw new IllegalArgumentException("Points for multiple choice questions are automatically calculated and cannot be manually assigned.");
+//        }
         this.givenPoints += points;
     }
+
+
+
 }

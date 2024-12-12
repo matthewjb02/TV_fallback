@@ -24,12 +24,12 @@ public class TeacherController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.FOUND)
-    public TeacherResponse getTeacher(@PathVariable Long id) {
+    public TeacherResponse getTeacher(@PathVariable String id) {
         return teacherService.getTeacherResponse(id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void deleteTeacher(@PathVariable Long id) {
+    public void deleteTeacher(@PathVariable String id) {
         teacherService.removeTeacher(id);}
 }

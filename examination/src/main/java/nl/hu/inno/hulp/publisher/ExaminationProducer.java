@@ -25,21 +25,21 @@ public class ExaminationProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendStudentRequest(Long studentId) {
+    public void sendStudentRequest(String studentId) {
         LOGGER.info(String.format("Message sent -> student id: %s", studentId));
         rabbitTemplate.convertAndSend(exchange, routingKey, studentId);
     }
 
-    public void sendExamRequest(Long examId) {
+    public void sendExamRequest(String examId) {
         LOGGER.info(String.format("Message sent -> exam id: %s", examId));
         rabbitTemplate.convertAndSend(exchange, routingKey, examId);
     }
-    public void sendCourseRequest(Long courseId) {
+    public void sendCourseRequest(String courseId) {
         LOGGER.info(String.format("Message sent -> course id: %s", courseId));
         rabbitTemplate.convertAndSend(exchange, routingKey, courseId);
     }
 
-    public void sendQuestionRequest(Long examSessionId, Long examId, Long questionId) {
+    public void sendQuestionRequest(String examSessionId, String examId, String questionId) {
         LOGGER.info(String.format("Message sent -> exam-session id: %s exam id: %s, question id: %s", examSessionId, examId, questionId));
         SeeQuestion seeQuestion = new SeeQuestion(examSessionId, examId, questionId);
         rabbitTemplate.convertAndSend(exchange, routingKey, seeQuestion);
@@ -55,20 +55,20 @@ public class ExaminationProducer {
         rabbitTemplate.convertAndSend(exchange, routingKey, examSessionResponse);
     }
 
-    public void sendUpdateQuestionGradingRequest(Long examSessionId, int questionNr, UpdateOpenQuestionPointsRequest request) {
+    public void sendUpdateQuestionGradingRequest(String examSessionId, int questionNr, UpdateOpenQuestionPointsRequest request) {
         UpdateOpenQuestionPoints updateOpenQuestionPoints = new UpdateOpenQuestionPoints(examSessionId, questionNr, request);
         LOGGER.info(String.format("Message sent -> exam-session id: %s, question number: %s, request: %s", updateOpenQuestionPoints));
         rabbitTemplate.convertAndSend(exchange, routingKey, updateOpenQuestionPoints);
 
     }
 
-    public void sendAddSubmissionToExamRequest(Long examId, Long submissionId) {
+    public void sendAddSubmissionToExamRequest(String examId, String submissionId) {
         AddSubmissionToExam addSubmissionToExam = new AddSubmissionToExam(examId, submissionId);
         LOGGER.info(String.format("Message sent -> exam-session id: %s, submission-response: %s", addSubmissionToExam));
         rabbitTemplate.convertAndSend(exchange, routingKey, addSubmissionToExam);
     }
 
-    public void saveSubmissionRequest(Long submissionId) {
+    public void saveSubmissionRequest(String submissionId) {
         LOGGER.info(String.format("Message sent -> submission id: %s", submissionId));
         rabbitTemplate.convertAndSend(exchange, routingKey, submissionId);
     }

@@ -6,6 +6,4 @@ import lombok.Data;
 public class UpdateOpenQuestionPointsRequest {
     public  int givenPoints;
     public String feedback;
-
-
 }

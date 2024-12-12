@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 public class CourseResponse {
-    private Long id;
+    private String id;
     private String name;
     private List<TeacherResponse> teachers;
     private List<ExamResponse> approvedExams;
@@ -18,7 +18,7 @@ public class CourseResponse {
     protected CourseResponse() {
     }
 
-    public CourseResponse(Long id, String name, List<TeacherResponse> teachers, List<ExamResponse> approvedExams, List<ExamResponse> rejectedExams, List<ExamResponse> validatingExams) {
+    public CourseResponse(String id, String name, List<TeacherResponse> teachers, List<ExamResponse> approvedExams, List<ExamResponse> rejectedExams, List<ExamResponse> validatingExams) {
         this.id = id;
         this.name = name;
         this.teachers = teachers;

@@ -5,6 +5,5 @@ import lombok.Getter;
 @Getter
 public class GradingRequest {
     private String comments;
-    private Long teacherId;
-
+    private String teacherId;
 }

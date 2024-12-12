@@ -1,30 +1,21 @@
 package nl.hu.inno.hulp.grading.domain;
 
-import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
 import nl.hu.inno.hulp.commons.enums.SubmissionStatus;
-import nl.hu.inno.hulp.commons.messaging.ExamSessionDTO;
-import nl.hu.inno.hulp.commons.messaging.GradingDTO;
+import org.springframework.data.neo4j.core.schema.Id;
+import org.springframework.data.neo4j.core.schema.Node;
+import java.util.UUID;
 
-
-@Getter
-@Entity
+@Node
+@Data
 public class Submission {
-
     @Id
-    @GeneratedValue
-    private Long id;
-
-    @Column (name = "exam_session_id")
-    private Long examSessionId;
-
-    @OneToOne(cascade = CascadeType.ALL)
+    private String id= UUID.randomUUID().toString();
+    private String examSessionId;
     private Grading grading;
-
-    @Enumerated(EnumType.STRING)
     private SubmissionStatus status;
 
-    private Submission(Long examSessionSessionId) {
+    private Submission(String examSessionSessionId) {
         this.examSessionId = examSessionSessionId;
         this.status = SubmissionStatus.SUBMITTED;
     }
@@ -32,7 +23,7 @@ public class Submission {
     protected Submission() {
     }
 
-    public static Submission createSubmission(Long examSessionId) {
+    public static Submission createSubmission(String examSessionId) {
         return new Submission(examSessionId);
     }
 

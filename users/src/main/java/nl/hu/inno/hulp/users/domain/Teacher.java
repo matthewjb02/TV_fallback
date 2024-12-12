@@ -1,16 +1,20 @@
 package nl.hu.inno.hulp.users.domain;
 
-import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.data.aerospike.mapping.Document;
+import org.springframework.data.aerospike.mapping.Field;
+import org.springframework.data.annotation.Id;
 
-@Entity
-@Getter
+import java.util.UUID;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Document
 public class Teacher extends User {
-    @GeneratedValue
     @Id
-    private long id;
-
-    @Embedded
+    private String id = UUID.randomUUID().toString();
+    @Field("email")
     private TeacherEmail email;
 
     protected Teacher() {

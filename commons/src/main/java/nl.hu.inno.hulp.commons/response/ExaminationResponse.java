@@ -6,7 +6,7 @@ import java.util.List;
 
 @Getter
 public class ExaminationResponse {
-    private final Long id;
+    private final String id;
 
     private final List<StudentResponse> candidates;
 
@@ -24,7 +24,7 @@ public class ExaminationResponse {
     private final int duration;
     private final int extraTime;
 
-    public ExaminationResponse(Long id, List<StudentResponse> candidates, List<ExamSessionResponse> examSessions, ExamResponse exam, String name, String password, ExamDateDTO examDate, int duration, int extraTime,CourseResponse course) {
+    public ExaminationResponse(String id, List<StudentResponse> candidates, List<ExamSessionResponse> examSessions, ExamResponse exam, String name, String password, ExamDateDTO examDate, int duration, int extraTime,CourseResponse course) {
         this.id = id;
         this.candidates = candidates;
         this.examSessions = examSessions;

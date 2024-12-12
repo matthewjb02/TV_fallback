@@ -1,11 +1,7 @@
 package nl.hu.inno.hulp.grading.data;
 
-
 import nl.hu.inno.hulp.grading.domain.Submission;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.neo4j.repository.Neo4jRepository;
 
-@Repository
-public interface SubmissionRepository extends JpaRepository<Submission, Long> {
-
+public interface SubmissionRepository extends Neo4jRepository<Submission, String> {
 }

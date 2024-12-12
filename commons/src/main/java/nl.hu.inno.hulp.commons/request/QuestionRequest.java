@@ -18,6 +18,9 @@ public class QuestionRequest {
     private int points;
     private String question;
 
+    protected QuestionRequest() {
+    }
+
     public QuestionRequest(int points, String question) {
         this.points = points;
         this.question = question;

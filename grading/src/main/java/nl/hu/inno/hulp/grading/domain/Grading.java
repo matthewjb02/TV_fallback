@@ -1,24 +1,18 @@
 package nl.hu.inno.hulp.grading.domain;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import nl.hu.inno.hulp.commons.messaging.TeacherDTO;
+import lombok.Data;
+import org.springframework.data.neo4j.core.schema.Id;
+import org.springframework.data.neo4j.core.schema.Node;
+import java.util.UUID;
 
-
-@Entity
-@Getter
+@Node
+@Data
 public class Grading {
-
-    @Getter
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private String id= UUID.randomUUID().toString();
     private double grade = 0.0;
     private String comments;
-
-    @Transient
-    private Long graderId;
+    private String graderId;
 
     public Grading(double grade, String comments) {
         this.grade = grade;
@@ -31,10 +25,7 @@ public class Grading {
         return new Grading(grade, comments);
     }
 
-    public void addGrader(Long grader) {
+    public void addGrader(String grader) {
         this.graderId = grader;
-
     }
-
-
 }

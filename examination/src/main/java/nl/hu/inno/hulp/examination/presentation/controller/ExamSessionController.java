@@ -42,7 +42,7 @@ public class ExamSessionController {
     }*/
 
     @GetMapping("/seeQuestion/{questionId}/{examId}")
-    public QuestionResponse seeQuestion(@PathVariable Long examId, @PathVariable Long questionId) {
+    public QuestionResponse seeQuestion(@PathVariable String examId, @PathVariable String questionId) {
         try {
             return examSessionService.seeQuestion(examId, questionId);
         } catch(ExaminationInactiveException e) {
@@ -63,19 +63,19 @@ public class ExamSessionController {
         }
     }
 
-//    @PostMapping("/end")
-//    public ExamSessionResponse endExamSession(@RequestBody ExamSessionRequest examinationRequest) {
-//        try {
-//            return examSessionService.endExamSession(examinationRequest);
-//        } catch(ExaminationInactiveException e) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-//        } catch (NoExamSessionFoundException e) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-//        }
-//    }
+    @PostMapping("/end")
+    public ExamSessionResponse endExamSession(@RequestBody ExamSessionRequest examinationRequest) {
+        try {
+            return examSessionService.endExamSession(examinationRequest);
+        } catch(ExaminationInactiveException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (NoExamSessionFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
 
     @GetMapping("/{id}")
-    public ExamSessionResponse getExamSession(@PathVariable Long id) {
+    public ExamSessionResponse getExamSession(@PathVariable String id) {
         try {
             return examSessionService.getExamSessionResponse(id);
         } catch (NoExamSessionFoundException e) {

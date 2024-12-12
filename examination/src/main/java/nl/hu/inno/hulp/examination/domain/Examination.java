@@ -7,24 +7,25 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Document(collection = "Examination")
 @Getter
 public class Examination {
     @Id
-    private Long id;
+    private String id = UUID.randomUUID().toString();
 
     @Field("candidates")
-    private List<Long> candidates = new ArrayList<>();
+    private List<String> candidates = new ArrayList<>();
 
     @Field("exam_sessions")
     private List<ExamSession> examSessions = new ArrayList<>();
 
     @Field("exam_id")
-    private Long examId;
+    private String examId;
 
     @Field("course_id")
-    private Long courseId;
+    private String courseId;
 
     private String name;
     private String password;
@@ -37,7 +38,7 @@ public class Examination {
     protected Examination() {
     }
 
-    public Examination(Long id, String name, Long examId, String password, ExamDate examDate, int duration, int extraTime, Long courseId) {
+    public Examination(String id, String name, String examId, String password, ExamDate examDate, int duration, int extraTime, String courseId) {
         this.id = id;
         this.name = name;
         this.examId = examId;
@@ -52,24 +53,24 @@ public class Examination {
         return extraTimeRight ? duration + extraTime : duration;
     }
 
-    public List<Long> selectCandidates(List<Long> candidates) {
+    public List<String> selectCandidates(List<String> candidates) {
         this.candidates.addAll(candidates);
         return this.candidates;
     }
 
-    public List<Long> selectCandidate(Long studentId) {
+    public List<String> selectCandidate(String studentId) {
         if (!candidates.contains(studentId)) {
             this.candidates.add(studentId);
         }
         return this.candidates;
     }
 
-    public List<Long> removeCandidates(List<Long> candidates) {
+    public List<String> removeCandidates(List<String> candidates) {
         this.candidates.removeAll(candidates);
         return this.candidates;
     }
 
-    public List<Long> removeCandidate(Long studentId) {
+    public List<String> removeCandidate(String studentId) {
         this.candidates.remove(studentId);
         return this.candidates;
     }
@@ -78,7 +79,7 @@ public class Examination {
         return this.examSessions.add(examSession);
     }
 
-    public boolean validateStudent(Long studentId) {
+    public boolean validateStudent(String studentId) {
         return candidates.contains(studentId);
     }
 }

@@ -1,15 +1,15 @@
 package nl.hu.inno.hulp.users.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import lombok.Data;
+import org.springframework.data.aerospike.mapping.Document;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Embeddable
+@Data
+@Document
 public class TeacherEmail {
-    @Column(name = "email", unique = true, nullable = false)
     private String email;
     private final static String emailRegex = "^[a-z]+\\.[a-z]+@hu\\.nl$";
 
@@ -18,10 +18,9 @@ public class TeacherEmail {
      Matcher EmailMatcher = EmailPattern.matcher(email);
     if (EmailMatcher.matches()) {
         this.email = email;
-            }
-    else{
-        throw new IllegalArgumentException("Invalid email format");
-    }
+    } else {
+            throw new IllegalArgumentException("Invalid email format");
+        }
     }
 
     public String getEmailString() {
@@ -42,6 +41,5 @@ public class TeacherEmail {
     }
 
     public TeacherEmail() {
-
     }
 }

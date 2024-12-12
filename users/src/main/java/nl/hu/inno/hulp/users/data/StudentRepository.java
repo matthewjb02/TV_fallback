@@ -1,9 +1,7 @@
 package nl.hu.inno.hulp.users.data;
 
 import nl.hu.inno.hulp.users.domain.Student;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.aerospike.repository.AerospikeRepository;
 
-@Repository
-public interface StudentRepository extends JpaRepository<Student, Long> {
+public interface StudentRepository extends AerospikeRepository<Student, String> {
 }

@@ -10,12 +10,12 @@ import java.io.Serializable;
 public class ExamSessionResponse implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final Long id;
+    private final String id;
     private final ExamState status;
     private final int duration;
     private final StudentResponse student;
 
-    public ExamSessionResponse(Long id, ExamState status, int duration, StudentResponse student) {
+    public ExamSessionResponse(String id, ExamState status, int duration, StudentResponse student) {
         this.id = id;
         this.status = status;
         this.duration = duration;

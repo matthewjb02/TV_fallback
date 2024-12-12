@@ -6,17 +6,22 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 
+
+
+
 @Entity
 @Getter
 public class Statistics {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private int submissionCount;
+
     private int passCount;
+
     private int failCount;
+
     private double averageScore;
 
 

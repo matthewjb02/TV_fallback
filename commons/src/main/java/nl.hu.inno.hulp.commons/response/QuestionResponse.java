@@ -6,12 +6,13 @@ import java.io.Serializable;
 
 @Getter
 public class QuestionResponse implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private String id;
 
     private int points;
     private String question;
 
     public QuestionResponse(int points, String question) {
+        this.id=id;
         this.points = points;
         this.question = question;
     }

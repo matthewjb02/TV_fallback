@@ -17,11 +17,11 @@ public class TeacherService {
         this.usersProducer = usersProducer;
     }
 
-    public Teacher getTeacherById(Long id) {
+    public Teacher getTeacherById(String id) {
         return teacherRepository.findById(id).orElseThrow();
     }
 
-    public TeacherResponse getTeacherResponse(Long id) {
+    public TeacherResponse getTeacherResponse(String id) {
         Teacher teacher = getTeacherById(id);
         return new TeacherResponse(teacher.getId(), teacher.getFirstName(), teacher.getLastName(),
                 teacher.getEmail().getEmailString());
@@ -32,10 +32,10 @@ public class TeacherService {
         teacherRepository.save(teacher);
         return getTeacherResponse(teacher.getId());
     }
-    public void processAndSendTeacherResponse(Long id){
+    public void processAndSendTeacherResponse(String id){
         this.usersProducer.sendTeacherResponse(getTeacherResponse(id));
     }
-    public void removeTeacher(Long id ) {
+    public void removeTeacher(String id ) {
         teacherRepository.deleteById(id);
     }
 }
