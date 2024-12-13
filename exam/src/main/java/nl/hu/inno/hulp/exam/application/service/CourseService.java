@@ -182,6 +182,7 @@ public class CourseService {
                 approvedExamResponses, rejectedExamResponses, validatingExamResponses);
     }
 
+
     private ExamResponse getExamResponse(Exam exam) {
 
         GradingCriteriaDTO gradingCriteriaDTO = new  GradingCriteriaDTO(0,0);
