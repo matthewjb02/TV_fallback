@@ -26,6 +26,7 @@ public class ExaminationController {
 //    }
 
 
+
     @GetMapping("{id}")
     public ExaminationResponse getExamination(@PathVariable Long id) {
         try {
